@@ -1,8 +1,9 @@
+import { Validador as validador } from './validador.js';
+
 class AbrigoAnimais {
   encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais) {
-    // Listas oficiais
-    const animaisDoAbrigo = ["Rex","Mimi","Fofo","Zero","Bola","Bebe","Loco"];
-    const brinquedosDoAbrigo = ["RATO","BOLA","LASER","CAIXA","NOVELO","SKATE"];
+    // Lista de brinquedos preferidos por cada animal
+
     const brinquedosDoAnimal = {
       Rex: ["RATO","BOLA"],
       Mimi: ["BOLA","LASER"],
@@ -19,18 +20,6 @@ class AbrigoAnimais {
     const brinquedosPessoa1Array = brinquedosPessoa1.split(",").map(item => item.trim());
     const brinquedosPessoa2Array = brinquedosPessoa2.split(",").map(item => item.trim());
 
-    
-    // validar se os animais existem no abrigo e se estão duplicados
-    function validarAnimais(listaAnimais) {
-      for (const animal of listaAnimais) {
-        if (!animaisDoAbrigo.includes(animal)) {
-          return false;  
-        }
-      }
-      return true;
-    }
-
-
     // Função para verificar se subsequência está presente na sequência (ordem importa, elementos extras permitidos)
     function isSubsequence(subseq, seq) {
       let i = 0;
@@ -43,11 +32,14 @@ class AbrigoAnimais {
       return i === subseq.length;
     }
 
-    // Captura o retorno da validação
-    const resultadoValidacaoAnimal = validarAnimais(ordemDosAnimaisArray);
-    if (resultadoValidacaoAnimal !== true) {
+    if (validador.validarAnimais(ordemDosAnimaisArray) !== true) {
       return { erro: 'Animal inválido' };
     }
+
+    if (validador.validarBrinquedos(brinquedosPessoa1Array) !== true || validador.validarBrinquedos(brinquedosPessoa2Array) !== true) {
+      return { erro: 'Brinquedo inválido' };
+    }
+
 
     // Contador para limitar 3 animais por pessoa
     let countPessoa1 = 0;
@@ -85,7 +77,6 @@ class AbrigoAnimais {
           resultado.push(`${animal} - abrigo`);
         }
       } else {
-        // CORREÇÃO AQUI no operador lógico e nome da variável
         if (Pessoa1TemB && !Pessoa2TemB && countPessoa1 < 3) {
           resultado.push(`${animal} - pessoa 1`);
           countPessoa1++;
