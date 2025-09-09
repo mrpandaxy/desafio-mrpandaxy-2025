@@ -11,21 +11,23 @@ class AbrigoAnimais {
     // convertendo string de animais em arrays
     const ordemDosAnimaisArray = ordemAnimais.split(",");
     
-
     // validar se os animais existem no abrigo e se estão duplicados
     function validarAnimais(listaAnimais) {
       const animaisVistos = new Set();
-      
-     
-      for (const animal of ordemDosAnimaisArray) {
+      for (const animal of listaAnimais) {
         if (!animaisDoAbrigo.includes(animal) || animaisVistos.has(animal)) {
-          return { erro: `Animal inválido` }; 
+          return { erro: `Animal inválido` };
         }
         animaisVistos.add(animal);
-
       }
+      return true;
     }
-    
+
+    // Captura o retorno da validação
+    const resultadoValidacaoAnimal = validarAnimais(ordemDosAnimaisArray);
+    if (resultadoValidacaoAnimal !== true) {
+      return resultadoValidacaoAnimal; 
+    }
     
     //convertendo string de brinquedos em arrays e tirando espaços extras
     const brinquedosPessoa1Array = brinquedosDoAbrigo.split(",").map(item => item.trim());
@@ -47,7 +49,7 @@ class AbrigoAnimais {
       return { erro: "Brinquedo inválido" };
     }
   
-  
+    return { lista: [0] };
   
   }
 }
