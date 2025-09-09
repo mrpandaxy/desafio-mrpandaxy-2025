@@ -12,14 +12,14 @@ class AbrigoAnimais {
     const animaisVistos = new Set();
     for (const animal of ordemDosAnimaisArray) {
       if (!animaisDoAbrigo.includes(animal) || animaisVistos.has(animal)) {
-        return { erro: `Animal inválido: ${animal}` }; 
+        return { erro: `Animal inválido` }; 
       }
 
       animaisVistos.add(animal);
     }
 
-    // por enquanto só retorna lista vazia para os testes avançarem
-    return { lista: [0], erro: null };
+    
+
   }
 }
 
